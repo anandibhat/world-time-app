@@ -55,8 +55,17 @@ docker rm world-time
 This project uses GitHub Actions to automatically:
 1. Check code quality (HTML, CSS, JavaScript syntax)
 2. Validate project structure
-3. Build Docker image
+3. Build Docker image for multiple platforms (amd64, arm64, arm/v7)
 4. Push to Docker Hub
+
+### Multi-Platform Support
+
+The Docker image is built for multiple architectures:
+- **linux/amd64** - Intel/AMD 64-bit processors
+- **linux/arm64** - ARM 64-bit (Apple Silicon M1/M2/M3, AWS Graviton, etc.)
+- **linux/arm/v7** - ARM 32-bit (Raspberry Pi, etc.)
+
+This means you can run the app on any device without worrying about compatibility!
 
 ### Setting up GitHub Actions
 
