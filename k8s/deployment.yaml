@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: world-time-app
+  labels:
+    app: world-time-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: world-time-app
+  template:
+    metadata:
+      labels:
+        app: world-time-app
+    spec:
+      containers:
+      - name: world-time-app
+        image: anilnandibhatla/world-time-app:latest
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5

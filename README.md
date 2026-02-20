@@ -30,8 +30,8 @@ Simply open `index.html` in your web browser.
 ### Pull from Docker Hub
 
 ```bash
-docker pull YOUR_DOCKERHUB_USERNAME/world-time-app:latest
-docker run -d -p 8080:80 --name world-time YOUR_DOCKERHUB_USERNAME/world-time-app:latest
+docker pull anilnandibhatla/world-time-app:latest
+docker run -d -p 8080:80 --name world-time anilnandibhatla/world-time-app:latest
 ```
 
 ### Build locally
@@ -49,6 +49,53 @@ Then open your browser to `http://localhost:8080`
 docker stop world-time
 docker rm world-time
 ```
+
+## Running on Kubernetes
+
+Deploy to Kubernetes cluster (Docker Desktop, EKS, GKE, AKS):
+
+### Quick Deploy
+
+```bash
+# Using the deployment script
+./deploy.sh
+
+# Or manually
+kubectl apply -f k8s/
+```
+
+### Access the Application
+
+For Docker Desktop:
+```bash
+# App will be available at http://localhost:80
+open http://localhost
+```
+
+For Cloud (EKS/GKE/AKS):
+```bash
+# Get the external IP
+kubectl get service world-time-app
+# Access via http://<EXTERNAL-IP>
+```
+
+### Manage Deployment
+
+```bash
+# Check status
+kubectl get pods -l app=world-time-app
+
+# View logs
+kubectl logs -l app=world-time-app
+
+# Scale deployment
+kubectl scale deployment world-time-app --replicas=5
+
+# Delete deployment
+kubectl delete -f k8s/
+```
+
+See [k8s/README.md](k8s/README.md) for detailed Kubernetes documentation.
 
 ## CI/CD Pipeline
 
@@ -105,11 +152,16 @@ world-time-app/
 ├── .github/
 │   └── workflows/
 │       └── docker-build-push.yml
+├── k8s/
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   └── README.md
 ├── index.html
 ├── styles.css
 ├── app.js
 ├── Dockerfile
 ├── nginx.conf
+├── deploy.sh
 ├── .gitignore
 └── README.md
 ```
