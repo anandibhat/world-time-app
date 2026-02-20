@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 World Time App</h1>
+            <p>Track time across the globe</p>
+        </header>
+
+        <section class="converter-section">
+            <h2>Timezone Converter</h2>
+            <div class="converter">
+                <div class="converter-input">
+                    <label>From:</label>
+                    <select id="fromTimezone"></select>
+                    <input type="datetime-local" id="fromTime">
+                </div>
+                <div class="converter-arrow">→</div>
+                <div class="converter-input">
+                    <label>To:</label>
+                    <select id="toTimezone"></select>
+                    <input type="datetime-local" id="toTime" readonly>
+                </div>
+            </div>
+        </section>
+
+        <section class="clocks-section">
+            <div class="section-header">
+                <h2>World Clocks</h2>
+                <div class="add-city">
+                    <input type="text" id="citySearch" placeholder="Search for a city...">
+                    <button id="addCityBtn">Add City</button>
+                </div>
+            </div>
+            <div id="clocksContainer" class="clocks-container"></div>
+        </section>
+
+        <div id="searchResults" class="search-results"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
