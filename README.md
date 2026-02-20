@@ -2,7 +2,7 @@
 
 A beautiful, responsive web application for tracking time across different timezones around the world.
 
-![Build Status](https://github.com/YOUR_USERNAME/world-time-app/workflows/Build%20and%20Push%20Docker%20Image/badge.svg)
+![Build Status](https://github.com/anandibhat/world-time-app/workflows/Build%20and%20Push%20Docker%20Image/badge.svg)
 
 ## Features
 
