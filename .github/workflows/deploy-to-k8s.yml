@@ -1,0 +1,50 @@
+name: Deploy to Kubernetes
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify kubectl access
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
+
+      - name: Deploy to Kubernetes
+        run: |
+          echo "🚀 Deploying to Kubernetes..."
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+
+      - name: Wait for rollout
+        run: |
+          echo "⏳ Waiting for deployment to complete..."
+          kubectl rollout status deployment/world-time-app --timeout=120s
+
+      - name: Verify deployment
+        run: |
+          echo "✅ Deployment Status:"
+          kubectl get deployment world-time-app
+          echo ""
+          echo "🎯 Pods:"
+          kubectl get pods -l app=world-time-app
+          echo ""
+          echo "🔌 Service:"
+          kubectl get service world-time-app
+
+      - name: Force image pull
+        run: |
+          echo "🔄 Restarting pods to pull latest image..."
+          kubectl rollout restart deployment/world-time-app
+          kubectl rollout status deployment/world-time-app --timeout=120s

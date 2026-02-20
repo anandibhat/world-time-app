@@ -19,7 +19,28 @@ A beautiful, responsive web application for tracking time across different timez
 - CSS3 (with modern gradients and flexbox/grid)
 - Vanilla JavaScript
 - Docker & Nginx
-- GitHub Actions for CI/CD
+- Kubernetes for orchestration
+- GitHub Actions for CI/CD (Fully Automated!)
+
+## 🚀 Complete CI/CD Pipeline
+
+This project features a **fully automated DevOps pipeline**:
+
+```
+Code Push → GitHub Actions → Docker Hub → Auto-Deploy to Kubernetes
+    ↓            ↓               ↓               ↓
+  git push   Build & Test   Multi-Platform   Self-Hosted Runner
+                            Image Storage    (Local K8s)
+```
+
+**Zero manual intervention** - Push code and it automatically:
+1. ✅ Runs code quality checks
+2. ✅ Builds multi-platform Docker images
+3. ✅ Pushes to Docker Hub
+4. ✅ Deploys to Kubernetes cluster
+5. ✅ Restarts pods with new image
+
+For local Kubernetes deployment with full automation, see [SELF_HOSTED_RUNNER.md](SELF_HOSTED_RUNNER.md)
 
 ## Running Locally
 
